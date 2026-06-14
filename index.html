@@ -18,7 +18,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
@@ -38,12 +38,11 @@
             background-position: 0 0, 40px 60px, 130px 270px;
         }
 
-        /* App Container mimicking a mobile view */
         #app-container {
             width: 100%;
             max-width: 450px;
             height: 100vh;
-            background: rgba(10, 5, 27, 0.85);
+            background: rgba(10, 5, 27, 0.9);
             backdrop-filter: blur(10px);
             border: 2px solid var(--neon-purple);
             box-shadow: 0 0 20px var(--neon-purple);
@@ -52,13 +51,11 @@
             flex-direction: column;
         }
 
-        /* Screens */
         .screen {
             display: none;
             flex: 1;
             overflow-y: auto;
             padding-bottom: 80px;
-            position: relative;
         }
 
         .screen.active {
@@ -91,7 +88,7 @@
             margin-bottom: 20px;
         }
 
-        input, textarea, select {
+        input, select {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -117,11 +114,6 @@
             cursor: pointer;
             box-shadow: 0 0 10px var(--neon-pink);
             margin-top: 10px;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            transform: scale(1.02);
         }
 
         .toggle-auth {
@@ -131,14 +123,14 @@
             cursor: pointer;
         }
 
-        /* Header / Search Bar */
+        /* Header */
         .header {
             padding: 15px;
             background: rgba(0,0,0,0.4);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Video Feed Grid */
+        /* Video Grid */
         .video-grid {
             padding: 15px;
             display: grid;
@@ -173,12 +165,7 @@
             text-overflow: ellipsis;
         }
 
-        .video-author {
-            font-size: 0.75rem;
-            color: #aaa;
-        }
-
-        /* Navigation Bar */
+        /* Navbar */
         .navbar {
             position: absolute;
             bottom: 0;
@@ -194,9 +181,8 @@
 
         .nav-item {
             color: #888;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -212,50 +198,42 @@
             margin-top: 2px;
         }
 
-        /* Plus Button Custom Glow */
         .nav-item.plus-btn {
             color: var(--neon-blue);
-            font-size: 2rem;
-        }
-        .nav-item.plus-btn.active {
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
+            font-size: 1.8rem;
         }
 
-        /* Custom Video Player Detail Screen */
+        /* Custom Player Screen */
         #player-screen {
             background: #000;
-            padding-bottom: 0;
             z-index: 20;
         }
 
         .player-header {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 30;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
         }
 
         .back-btn {
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--neon-pink);
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 20px;
             cursor: pointer;
         }
 
         .main-video-element {
             width: 100%;
-            height: 250px;
+            height: 230px;
             background: #000;
         }
 
-        /* Custom Progress Bar styling requested */
+        /* Custom Progress Bars */
         .custom-progress-container {
             width: 100%;
-            height: 12px;
-            background-color: var(--neon-purple); /* Purple background bar */
+            height: 10px;
+            background-color: var(--neon-purple);
             position: relative;
             cursor: pointer;
         }
@@ -263,20 +241,18 @@
         .custom-progress-bar {
             height: 100%;
             width: 0%;
-            background-color: var(--neon-pink); /* Pink progress bar */
-            transition: width 0.1s linear;
+            background-color: var(--neon-pink);
         }
 
         .player-details {
             padding: 15px;
-            background: var(--bg-color);
             flex: 1;
             overflow-y: auto;
         }
 
         .engagement-row {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin: 15px 0;
         }
 
@@ -287,37 +263,27 @@
             border: 1px solid rgba(255,255,255,0.2);
             color: white;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            width: auto;
-            margin: 0;
-            box-shadow: none;
         }
+
         .like-dislike-btn.active {
             border-color: var(--neon-pink);
             box-shadow: 0 0 8px var(--neon-pink);
         }
 
-        .comments-section {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 15px;
-        }
-
         .comment-item {
             background: rgba(255,255,255,0.05);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 8px;
             font-size: 0.9rem;
         }
 
-        /* Scrolls (TikTok Mode) */
+        /* Scrolls Setup */
         #scrolls-screen {
-            padding-bottom: 65px;
             scroll-snap-type: y mandatory;
             overflow-y: scroll;
             height: 100%;
+            padding-bottom: 65px;
         }
 
         .scroll-container {
@@ -336,74 +302,47 @@
 
         .scroll-overlay {
             position: absolute;
-            bottom: 20px;
+            bottom: 30px;
             left: 15px;
             right: 80px;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-            z-index: 5;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.9);
         }
 
         .scroll-sidebar {
             position: absolute;
             right: 15px;
-            bottom: 100px;
+            bottom: 80px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
-            z-index: 5;
         }
 
         .sidebar-icon {
             width: 45px;
             height: 45px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 1px solid var(--neon-pink);
-            font-size: 1.2rem;
             cursor: pointer;
         }
 
-        /* Profile Screen */
+        /* Profile Header */
         .profile-header {
             text-align: center;
-            padding: 30px 20px;
-            background: rgba(255,255,255,0.02);
+            padding: 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .profile-pic-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
-        }
-
         .profile-pic {
-            width: 100%;
-            height: 100%;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
+            border: 2px solid var(--neon-blue);
             object-fit: cover;
-            border: 3px solid var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .edit-pfp-label {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: var(--neon-pink);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -427,81 +366,61 @@
             <h2 class="logo" style="font-size: 1.5rem; margin-bottom: 10px;">NightVideo</h2>
             <input type="text" id="search-bar" placeholder="🔍 Search for videos...">
         </div>
-        <div class="video-grid" id="home-video-grid">
-            </div>
+        <div class="video-grid" id="home-video-grid"></div>
     </div>
 
-    <div id="scrolls-screen" class="screen">
-        </div>
+    <div id="scrolls-screen" class="screen"></div>
 
     <div id="post-screen" class="screen" style="padding: 20px;">
-        <h2 style="color: var(--neon-blue); margin-bottom: 20px; text-shadow: 0 0 5px var(--neon-blue);">Post Video Content</h2>
-        <label>Video Title / Captions</label>
-        <input type="text" id="post-title" placeholder="Enter an awesome title...">
-        
-        <label>Video Type</label>
+        <h2 style="color: var(--neon-blue); margin-bottom: 20px;">Post Content</h2>
+        <input type="text" id="post-title" placeholder="Video Title...">
         <select id="post-type">
-            <option value="normal">Normal Video (Horizontal / Standard)</option>
-            <option value="scroll">Scroll (Vertical / Short)</option>
+            <option value="normal">Normal Video</option>
+            <option value="scroll">Scroll (Vertical Short)</option>
         </select>
-
-        <label>Video Source URL</label>
-        <input type="text" id="post-url" placeholder="Paste .mp4 link (e.g. from imgur/web)">
-        <p style="font-size:0.75rem; color:#aaa; margin-top:-5px; margin-bottom:15px;">* For testing, a sample URL will automatically be assigned if left blank.</p>
-
-        <button id="submit-post-btn">🚀 Broadcast Post</button>
+        <input type="text" id="post-url" placeholder="Video URL (or leave blank for sample)">
+        <button id="submit-post-btn">Publish Post</button>
     </div>
 
     <div id="liked-screen" class="screen">
-        <div class="header">
-            <h2>Your Liked Content</h2>
-        </div>
-        <div class="video-grid" id="liked-video-grid">
-            </div>
+        <div class="header"><h2>Liked Content</h2></div>
+        <div class="video-grid" id="liked-video-grid"></div>
     </div>
 
     <div id="profile-screen" class="screen">
         <div class="profile-header">
-            <div class="profile-pic-container">
-                <img id="user-avatar" class="profile-pic" src="https://api.dicebear.com/7.x/bottts/svg?seed=Night" alt="Avatar">
-                <label class="edit-pfp-label" onclick="editProfilePic()">✏️</label>
-            </div>
-            <h2 id="profile-username-heading">Username</h2>
-            <button id="edit-username-btn" style="width: auto; padding: 5px 15px; font-size: 0.8rem; background: transparent; border: 1px solid var(--neon-blue); box-shadow: none; margin-top:5px;">Change Username</button>
+            <img id="user-avatar" class="profile-pic" src="https://api.dicebear.com/7.x/bottts/svg?seed=Night" onclick="changePfp()">
+            <h2 id="profile-username-heading" style="margin-top:10px;">@User</h2>
+            <button onclick="changeUsername()" style="width:auto; padding:5px 10px; font-size:0.8rem; margin-top:5px;">Edit Username</button>
         </div>
-        <div style="padding: 15px;"><h3 style="color: var(--neon-pink)">Your Uploads</h3></div>
-        <div class="video-grid" id="profile-video-grid">
-            </div>
+        <h3 style="padding:15px 15px 0; color:var(--neon-pink)">Your Uploads</h3>
+        <div class="video-grid" id="profile-video-grid"></div>
     </div>
 
     <div id="player-screen" class="screen">
         <div class="player-header">
             <button class="back-btn" id="player-back-btn">⬅ Back</button>
         </div>
-        
-        <video id="main-player-element" class="main-video-element" autoplay loops playsinline></video>
+        <video id="main-player-element" class="main-video-element" autoplay controlslist="nodownload"></video>
         
         <div class="custom-progress-container" id="custom-progress-container">
             <div class="custom-progress-bar" id="custom-progress-bar"></div>
         </div>
 
         <div class="player-details">
-            <h2 id="player-video-title">Video Title</h2>
-            <p id="player-video-author" style="color:#aaa; font-size:0.85rem;">by Creator</p>
-            
+            <h2 id="player-video-title">Title</h2>
+            <p id="player-video-author" style="color:#aaa;">by author</p>
             <div class="engagement-row">
-                <button class="like-dislike-btn" id="player-like-btn">👍 <span id="like-count">0</span></button>
+                <button class="like-dislike-btn" id="player-like-btn">👍 Like</button>
                 <button class="like-dislike-btn" id="player-dislike-btn">👎 Dislike</button>
             </div>
-
-            <div class="comments-section">
+            <div style="margin-top:20px;">
                 <h3>Comments</h3>
-                <div style="display:flex; gap: 10px; margin: 10px 0;">
-                    <input type="text" id="new-comment-input" placeholder="Add a public comment..." style="margin:0;">
-                    <button id="submit-comment-btn" style="width:auto; margin:0; padding: 0 15px;">Post</button>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <input type="text" id="new-comment-input" placeholder="Add a comment..." style="margin:0;">
+                    <button id="submit-comment-btn" style="width:auto; margin:0; padding:0 15px;">Post</button>
                 </div>
-                <div id="comments-container">
-                    </div>
+                <div id="comments-container" style="margin-top:10px;"></div>
             </div>
         </div>
     </div>
@@ -516,476 +435,280 @@
 
 </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-    // Your Explicit Configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyAPKDpEvaGN5f2spZNQMHER5JWiEQbnelQ",
-        authDomain: "nightvideo-1bb6b.firebaseapp.com",
-        projectId: "nightvideo-1bb6b",
-        storageBucket: "nightvideo-1bb6b.firebasestorage.app",
-        messagingSenderId: "640068625340",
-        appId: "1:640068625340:web:91cd35b0f032ae1a36c1b9",
-        measurementId: "G-G609MJ505E"
-    };
-
-    // Initialize Firebase & FireStore
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Global State management variables
-    let currentUser = null;
-    let isLoginMode = false;
-    let allVideos = [];
-    let currentPlayingVideoGlobal = null;
-
-    // --- SAMPLE BACKUP VIDEOS (If database is empty) ---
-    const sampleVideos = [
-        { id: "v1", title: "Midnight City Lights Walk", type: "normal", url: "https://vjs.zencdn.net/v/oceans.mp4", author: "CyberTracer", likes: 12, likedBy: [] },
-        { id: "v2", title: "Retro Vaporwave Drive", type: "normal", url: "https://www.w3schools.com/html/mov_bbb.mp4", author: "NeonRider", likes: 45, likedBy: [] },
-        { id: "s1", title: "Insane skater tricks! #shorts", type: "scroll", url: "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4", author: "SkateFiend", likes: 231, likedBy: [] },
-        { id: "s2", title: "POV: Tokyo Arcade Rooms 👾", type: "scroll", url: "https://assets.mixkit.co/videos/preview/mixkit-tunnel-of-futuristic-blue-lights-42289-large.mp4", author: "TokyoVibe", likes: 824, likedBy: [] }
+<script>
+    // System Data Initialization
+    let users = JSON.parse(localStorage.getItem('nv_users')) || {};
+    let videos = JSON.parse(localStorage.getItem('nv_videos')) || [
+        { id: "1", title: "Retro Midnight Neon Drive", type: "normal", url: "https://vjs.zencdn.net/v/oceans.mp4", author: "CyberDrive", likedBy: [], comments: [] },
+        { id: "2", title: "Lo-Fi Beats for Coding", type: "normal", url: "https://www.w3schools.com/html/mov_bbb.mp4", author: "VaporWaver", likedBy: [], comments: [] },
+        { id: "3", title: "Neon Tokyo Aesthetic #shorts", type: "scroll", url: "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4", author: "TokyoVibes", likedBy: [], comments: [] },
+        { id: "4", title: "Amazing Light Show!", type: "scroll", url: "https://assets.mixkit.co/videos/preview/mixkit-tunnel-of-futuristic-blue-lights-42289-large.mp4", author: "GlowMaster", likedBy: [], comments: [] }
     ];
 
-    // --- APPLICATION BOOTING AND ROUTING SETUP ---
-    window.addEventListener('DOMContentLoaded', () => {
-        setupAuthEvents();
-        setupNavigationAndPosting();
-        setupCustomVideoPlayerControls();
+    let currentUser = null;
+    let isLoginMode = false;
+    let activeVideo = null;
+
+    // Save helpers
+    function saveAll() {
+        localStorage.setItem('nv_users', JSON.stringify(users));
+        localStorage.setItem('nv_videos', JSON.stringify(videos));
+    }
+
+    // Auth Actions
+    const authToggle = document.getElementById('auth-toggle');
+    const authTitle = document.getElementById('auth-title');
+    const authBtn = document.getElementById('auth-submit-btn');
+
+    authToggle.addEventListener('click', () => {
+        isLoginMode = !isLoginMode;
+        authTitle.innerText = isLoginMode ? "Welcome Back" : "Create Account";
+        authBtn.innerText = isLoginMode ? "Log In" : "Sign Up";
+        authToggle.innerText = isLoginMode ? "Don't have an account? Sign Up" : "Already have an account? Log In";
     });
 
-    // --- AUTHENTICATION FLOW (Firestore Emulated User Architecture) ---
-    function setupAuthEvents() {
-        const authToggle = document.getElementById('auth-toggle');
-        const authTitle = document.getElementById('auth-title');
-        const authBtn = document.getElementById('auth-submit-btn');
-        
-        authToggle.addEventListener('click', () => {
-            isLoginMode = !isLoginMode;
-            authTitle.innerText = isLoginMode ? "Welcome Back" : "Create Account";
-            authBtn.innerText = isLoginMode ? "Log In" : "Sign Up";
-            authToggle.innerText = isLoginMode ? "Don't have an account? Sign Up" : "Already have an account? Log In";
-        });
+    authBtn.addEventListener('click', () => {
+        const username = document.getElementById('auth-username').value.trim();
+        const password = document.getElementById('auth-password').value.trim();
 
-        authBtn.addEventListener('click', async () => {
-            const username = document.getElementById('auth-username').value.trim();
-            const password = document.getElementById('auth-password').value.trim();
+        if(!username || !password) return alert("Please fill out all spaces.");
 
-            if(!username || !password) return alert("Please fill out all identity spaces.");
-
-            if(isLoginMode) {
-                // Log-in emulation via database verification
-                const userDoc = await getDoc(doc(db, "users", username));
-                if(userDoc.exists() && userDoc.data().password === password) {
-                    loginSuccess(userDoc.data());
-                } else {
-                    alert("Invalid Username or Password.");
-                }
+        if(isLoginMode) {
+            if(users[username] && users[username].password === password) {
+                login(username);
             } else {
-                // Sign-up profile allocation
-                const userDoc = await getDoc(doc(db, "users", username));
-                if(userDoc.exists()) return alert("Username already preserved by another explorer.");
-
-                const newUser = {
-                    username: username,
-                    password: password,
-                    pfp: `https://api.dicebear.com/7.x/bottts/svg?seed=${username}`,
-                    likedVideos: []
-                };
-
-                await setDoc(doc(db, "users", username), newUser);
-                loginSuccess(newUser);
+                alert("Incorrect username or password.");
             }
-        });
-    }
+        } else {
+            if(users[username]) return alert("Username already taken!");
+            users[username] = { username, password, pfp: `https://api.dicebear.com/7.x/bottts/svg?seed=${username}` };
+            saveAll();
+            login(username);
+        }
+    });
 
-    function loginSuccess(userData) {
-        currentUser = userData;
+    function login(username) {
+        currentUser = users[username];
         document.getElementById('auth-screen').classList.remove('active');
         document.getElementById('main-navbar').style.display = 'flex';
-        
-        // Setup initial profiles details
-        document.getElementById('user-avatar').src = currentUser.pfp;
-        document.getElementById('profile-username-heading').innerText = `@${currentUser.username}`;
-        
+        updateProfileUI();
         switchTab('home');
-        syncContentFeed();
     }
 
-    // --- CORE TAB CONTROLLER NAVIGATION ---
-    window.switchTab = function(tabName) {
-        // Pause all global active players
-        document.getElementById('main-player-element').pause();
-        const activeScrolls = document.querySelectorAll('.scroll-video');
-        activeScrolls.forEach(v => v.pause());
+    function updateProfileUI() {
+        document.getElementById('user-avatar').src = currentUser.pfp;
+        document.getElementById('profile-username-heading').innerText = `@${currentUser.username}`;
+    }
 
-        // Deactivate all screens and menu classes
+    // Tab Handling
+    window.switchTab = function(tabName) {
+        document.getElementById('main-player-element').pause();
+        document.querySelectorAll('.scroll-video').forEach(v => v.pause());
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
 
-        // Toggle requested views
-        const targetedScreen = document.getElementById(`${tabName}-screen`);
-        if(targetedScreen) targetedScreen.classList.add('active');
+        document.getElementById(`${tabName}-screen`).classList.add('active');
+        
+        // Tab indicator update
+        const idx = ['home','scrolls','post','liked','profile'].indexOf(tabName);
+        document.querySelectorAll('.nav-item')[idx].classList.add('active');
 
-        // Design active highlighting element configuration matching
-        const navItems = document.querySelectorAll('.nav-item');
-        if(tabName === 'home') navItems[0].classList.add('active');
-        if(tabName === 'scrolls') {
-            navItems[1].classList.add('active');
-            // Auto-play primary element in Scrolls view
-            const firstScroll = document.querySelector('.scroll-video');
-            if(firstScroll) firstScroll.play();
-        }
-        if(tabName === 'post') navItems[2].classList.add('active');
-        if(tabName === 'liked') navItems[3].classList.add('active');
-        if(tabName === 'profile') navItems[4].classList.add('active');
+        if(tabName === 'home' || tabName === 'liked' || tabName === 'profile') renderGrids();
+        if(tabName === 'scrolls') renderScrolls();
+    };
 
-        if(tabName === 'home' || tabName === 'liked' || tabName === 'profile') {
-            renderGrids();
-        }
-    }
-
-    // --- CONTENT SYNCING & MANAGEMENT (FIRESTORE INTERACTION) ---
-    async function syncContentFeed() {
-        try {
-            const querySnapshot = await getDocs(collection(db, "videos"));
-            allVideos = [];
-            querySnapshot.forEach((doc) => {
-                allVideos.push({ id: doc.id, ...doc.data() });
-            });
-
-            if(allVideos.length === 0) {
-                // If database is sterile, initialize with defaults
-                allVideos = [...sampleVideos];
-            }
-        } catch(e) {
-            console.log("Using local offline configuration data array defaults.", e);
-            allVideos = [...sampleVideos];
-        }
-        renderGrids();
-        renderScrollsFeed();
-    }
-
+    // Render Feeds
     function renderGrids() {
         const homeGrid = document.getElementById('home-video-grid');
         const likedGrid = document.getElementById('liked-video-grid');
         const profileGrid = document.getElementById('profile-video-grid');
-        const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+        const search = document.getElementById('search-bar').value.toLowerCase();
 
-        // Clear containers
-        homeGrid.innerHTML = '';
-        likedGrid.innerHTML = '';
-        profileGrid.innerHTML = '';
+        homeGrid.innerHTML = ''; likedGrid.innerHTML = ''; profileGrid.innerHTML = '';
 
-        allVideos.forEach(video => {
-            if(video.type !== 'normal') return; // Grids hold standard horizontal format items
+        videos.forEach(v => {
+            if(v.type !== 'normal') return;
+            if(search && !v.title.toLowerCase().includes(search)) return;
 
-            // Search filtering mechanism
-            if(searchQuery && !video.title.toLowerCase().includes(searchQuery)) return;
-
-            // Generate Video Card HTML Architecture template
             const card = document.createElement('div');
             card.className = 'video-card';
             card.innerHTML = `
-                <video class="video-thumbnail" src="${video.url}#t=1"></video>
+                <div style="width:100%; height:110px; background:#000; display:flex; align-items:center; justify-content:center; font-size:2rem;">🎬</div>
                 <div class="video-info">
-                    <div class="video-title">${video.title}</div>
-                    <div class="video-author">@${video.author}</div>
+                    <div class="video-title">${v.title}</div>
+                    <div style="font-size:0.75rem; color:#aaa;">@${v.author}</div>
                 </div>
             `;
-            
-            card.addEventListener('click', () => launchVideoPlayer(video));
+            card.onclick = () => openPlayer(v);
 
-            // Home Delivery Injection
-            homeGrid.appendChild(card.cloneNode(true));
-
-            // Populate Liked Feed Tab
-            if(video.likedBy && video.likedBy.includes(currentUser.username)) {
-                likedGrid.appendChild(card.cloneNode(true));
-            }
-
-            // Populate Self Creator Upload profile tab element
-            if(video.author === currentUser.username) {
-                profileGrid.appendChild(card.cloneNode(true));
-            }
-        });
-
-        // Re-assign listeners to cloned node systems manually
-        bindClicksToGridItems(homeGrid, 'normal');
-        bindClicksToGridItems(likedGrid, 'liked');
-        bindClicksToGridItems(profileGrid, 'profile');
-    }
-
-    function bindClicksToGridItems(gridContainer, mode) {
-        const structuralCards = gridContainer.querySelectorAll('.video-card');
-        let indexMap = 0;
-        allVideos.forEach(video => {
-            if(video.type !== 'normal') return;
-            if(mode === 'liked' && (!video.likedBy || !video.likedBy.includes(currentUser.username))) return;
-            if(mode === 'profile' && video.author !== currentUser.username) return;
-            
-            if(structuralCards[indexMap]) {
-                structuralCards[indexMap].addEventListener('click', () => launchVideoPlayer(video));
-                indexMap++;
-            }
+            homeGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
+            if(v.likedBy.includes(currentUser.username)) likedGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
+            if(v.author === currentUser.username) profileGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
         });
     }
 
-    function renderScrollsFeed() {
-        const scrollsScreen = document.getElementById('scrolls-screen');
-        scrollsScreen.innerHTML = '';
+    document.getElementById('search-bar').addEventListener('input', renderGrids);
 
-        allVideos.forEach(video => {
-            if(video.type !== 'scroll') return;
-
+    function renderScrolls() {
+        const scr = document.getElementById('scrolls-screen');
+        scr.innerHTML = '';
+        videos.forEach(v => {
+            if(v.type !== 'scroll') return;
             const container = document.createElement('div');
             container.className = 'scroll-container';
-            
-            const hasLiked = video.likedBy && video.likedBy.includes(currentUser.username);
+            const hasLiked = v.likedBy.includes(currentUser.username);
 
             container.innerHTML = `
-                <video class="scroll-video" src="${video.url}" loop playsinline></video>
-                <div class="scroll-overlay">
-                    <h3>@${video.author}</h3>
-                    <p>${video.title}</p>
-                </div>
+                <video class="scroll-video" src="${v.url}" loop playsinline></video>
+                <div class="scroll-overlay"><h3>@${v.author}</h3><p>${v.title}</p></div>
                 <div class="scroll-sidebar">
-                    <div class="sidebar-icon scroll-like-btn" style="color: ${hasLiked ? 'var(--neon-pink)' : 'white'}">❤️</div>
-                    <div style="font-size:0.75rem; margin-top:-15px; margin-bottom:10px;">${video.likes || 0}</div>
-                    <div class="sidebar-icon">💬</div>
+                    <div class="sidebar-icon" style="color:${hasLiked?'var(--neon-pink)':'white'}" onclick="toggleLike('${v.id}', true)">❤️</div>
+                    <div style="font-size:0.8rem; margin-top:-10px;">${v.likedBy.length}</div>
                 </div>
             `;
-
-            // Scrolling view video item optimization handling
-            const videoElement = container.querySelector('.scroll-video');
-            container.addEventListener('click', () => {
-                if (videoElement.paused) {
-                    videoElement.play();
-                } else {
-                    videoElement.pause();
-                }
-            });
-
-            // Like execution for Scrolls
-            container.querySelector('.scroll-like-btn').addEventListener('click', async (e) => {
-                e.stopPropagation();
-                await toggleLikeStatus(video);
-                syncContentFeed();
-            });
-
-            scrollsScreen.appendChild(container);
-        });
-
-        // Setup Mutation intersection observers to handle auto switching dynamic execution matching TikTok architectures
-        const observerOptions = { roughness: 0.1, threshold: 0.6 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const vid = entry.target.querySelector('.scroll-video');
-                if(vid) {
-                    if (entry.isIntersecting) {
-                        vid.play().catch(err => console.log("Autoplay blocked configuration handled.", err));
-                    } else {
-                        vid.pause();
-                    }
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.scroll-container').forEach(box => observer.observe(box));
-    }
-
-    // --- NAVIGATION AND CREATION HANDLING SETUP ---
-    function setupNavigationAndPosting() {
-        // Search Event Triggering
-        document.getElementById('search-bar').addEventListener('input', renderGrids);
-
-        // Upload Creator Logic implementation setup
-        document.getElementById('submit-post-btn').addEventListener('click', async () => {
-            const title = document.getElementById('post-title').value.trim();
-            const type = document.getElementById('post-type').value;
-            let url = document.getElementById('post-url').value.trim();
-
-            if(!title) return alert("Content details lack structural identification titles.");
             
-            // Assign dummy falls backup video if empty
-            if(!url) {
-                url = type === 'normal' 
-                    ? "https://vjs.zencdn.net/v/oceans.mp4" 
-                    : "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4";
-            }
-
-            const payload = {
-                title: title,
-                type: type,
-                url: url,
-                author: currentUser.username,
-                likes: 0,
-                likedBy: [],
-                comments: []
-            };
-
-            try {
-                await addDoc(collection(db, "videos"), payload);
-                alert("Broadcast successfully compiled to NightVideo network matrix!");
-                // Clear input form details safely
-                document.getElementById('post-title').value = '';
-                document.getElementById('post-url').value = '';
-                syncContentFeed();
-                switchTab('home');
-            } catch(e) {
-                // Fail-safe injection emulation locally if rules permissions drop off network bounds
-                allVideos.push({ id: "custom_" + Date.now(), ...payload });
-                alert("Local transmission compiled.");
-                switchTab('home');
-            }
+            const vid = container.querySelector('.scroll-video');
+            container.onclick = () => vid.paused ? vid.play() : vid.pause();
+            scr.appendChild(container);
         });
+
+        // Simple visibility autoplay check
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                const video = e.target.querySelector('.scroll-video');
+                if(video) e.isIntersecting ? video.play() : video.pause();
+            });
+        }, { threshold: 0.6 });
+        document.querySelectorAll('.scroll-container').forEach(c => obs.observe(c));
     }
 
-    // --- CUSTOM DESIGN INTUITIVE VIDEO PLAYER LAYER CONTROLS ---
-    function launchVideoPlayer(video) {
-        currentPlayingVideoGlobal = video;
-        document.getElementById('player-screen').classList.add('active');
+    // Video Posting
+    document.getElementById('submit-post-btn').addEventListener('click', () => {
+        const title = document.getElementById('post-title').value.trim();
+        const type = document.getElementById('post-type').value;
+        let url = document.getElementById('post-url').value.trim();
+
+        if(!title) return alert("Please enter a title.");
+        if(!url) url = type === 'normal' ? "https://vjs.zencdn.net/v/oceans.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4";
+
+        videos.push({ id: String(Date.now()), title, type, url, author: currentUser.username, likedBy: [], comments: [] });
+        saveAll();
         
-        const player = document.getElementById('main-player-element');
-        player.src = video.url;
-        player.play();
+        document.getElementById('post-title').value = '';
+        document.getElementById('post-url').value = '';
+        alert("Posted successfully!");
+        switchTab('home');
+    });
+
+    // Custom Video Player Logic
+    function openPlayer(video) {
+        activeVideo = video;
+        document.getElementById('player-screen').classList.add('active');
+        const p = document.getElementById('main-player-element');
+        p.src = video.url;
+        p.play();
 
         document.getElementById('player-video-title').innerText = video.title;
         document.getElementById('player-video-author').innerText = `by @${video.author}`;
-        document.getElementById('like-count').innerText = video.likes || 0;
+        
+        updatePlayerEngagementUI();
+        renderComments();
+    }
 
-        // Verify tracking state colors
-        const hasLiked = video.likedBy && video.likedBy.includes(currentUser.username);
+    function updatePlayerEngagementUI() {
+        const hasLiked = activeVideo.likedBy.includes(currentUser.username);
         document.getElementById('player-like-btn').classList.toggle('active', hasLiked);
-
-        renderCommentsView(video);
+        document.getElementById('player-like-btn').innerText = `👍 ${activeVideo.likedBy.length} Likes`;
     }
 
-    function setupCustomVideoPlayerControls() {
-        const player = document.getElementById('main-player-element');
-        const progressBar = document.getElementById('custom-progress-bar');
-        const progressContainer = document.getElementById('custom-progress-container');
+    // Custom Progress Tracker (Purple Bar/Pink Progress)
+    const playerElement = document.getElementById('main-player-element');
+    const progressBar = document.getElementById('custom-progress-bar');
+    const progressContainer = document.getElementById('custom-progress-container');
 
-        // Sync native playback runtime into custom pink / purple layout bar rendering
-        player.addEventListener('timeupdate', () => {
-            if(player.duration) {
-                const percentage = (player.currentTime / player.duration) * 100;
-                progressBar.style.width = `${percentage}%`;
-            }
-        });
-
-        // Click on track bar updates play positions
-        progressContainer.addEventListener('click', (e) => {
-            const widthOffset = progressContainer.getBoundingClientRect().width;
-            const clickPositionX = e.offsetX;
-            if(player.duration) {
-                player.currentTime = (clickPositionX / widthOffset) * player.duration;
-            }
-        });
-
-        // Back action escape route configuration routing setup
-        document.getElementById('player-back-btn').addEventListener('click', () => {
-            player.pause();
-            document.getElementById('player-screen').classList.remove('active');
-        });
-
-        // Like Execution Core implementation architecture mapping updates
-        document.getElementById('player-like-btn').addEventListener('click', async () => {
-            if(!currentPlayingVideoGlobal) return;
-            await toggleLikeStatus(currentPlayingVideoGlobal);
-            document.getElementById('like-count').innerText = currentPlayingVideoGlobal.likes;
-            document.getElementById('player-like-btn').classList.toggle('active', currentPlayingVideoGlobal.likedBy.includes(currentUser.username));
-        });
-
-        // Dislike basic toggling interaction visual layout configuration handling
-        const dislikeBtn = document.getElementById('player-dislike-btn');
-        dislikeBtn.addEventListener('click', () => {
-            dislikeBtn.classList.toggle('active');
-        });
-
-        // Commentary Posting Systems processing allocation loops mappings
-        document.getElementById('submit-comment-btn').addEventListener('click', async () => {
-            const text = document.getElementById('new-comment-input').value.trim();
-            if(!text || !currentPlayingVideoGlobal) return;
-
-            const commentObj = {
-                user: currentUser.username,
-                text: text
-            };
-
-            if(!currentPlayingVideoGlobal.comments) currentPlayingVideoGlobal.comments = [];
-            currentPlayingVideoGlobal.comments.push(commentObj);
-
-            // Attempt cloud persistence mapping
-            try {
-                const targetDocRef = doc(db, "videos", currentPlayingVideoGlobal.id);
-                await updateDoc(targetDocRef, {
-                    comments: arrayUnion(commentObj)
-                });
-            } catch(e) { console.log("Database write mutation dropped, operating local storage runtime adjustments."); }
-
-            document.getElementById('new-comment-input').value = '';
-            renderCommentsView(currentPlayingVideoGlobal);
-        });
-    }
-
-    async function toggleLikeStatus(video) {
-        if(!video.likedBy) video.likedBy = [];
-        const index = video.likedBy.indexOf(currentUser.username);
-
-        if(index > -1) {
-            video.likedBy.splice(index, 1);
-            video.likes = Math.max(0, video.likes - 1);
-        } else {
-            video.likedBy.push(currentUser.username);
-            video.likes = (video.likes || 0) + 1;
-        }
-
-        try {
-            const targetDocRef = doc(db, "videos", video.id);
-            await updateDoc(targetDocRef, {
-                likes: video.likes,
-                likedBy: video.likedBy
-            });
-        } catch(e) { console.log("Database connection variable execution fault.", e); }
-    }
-
-    function renderCommentsView(video) {
-        const box = document.getElementById('comments-container');
-        box.innerHTML = '';
-        if(!video.comments || video.comments.length === 0) {
-            box.innerHTML = `<p style="font-size:0.8rem; color:#666;">No interactions here yet. Write the first note!</p>`;
-            return;
-        }
-        video.comments.forEach(c => {
-            const line = document.createElement('div');
-            line.className = 'comment-item';
-            line.innerHTML = `<strong>@${c.user}</strong>: <span>${c.text}</span>`;
-            box.appendChild(line);
-        });
-    }
-
-    // --- USER SETTING PROFILES MUTATION MODULES SPECIFICS ---
-    window.editProfilePic = function() {
-        const newUrl = prompt("Enter new Profile Image URL link location path:", currentUser.pfp);
-        if(newUrl) {
-            currentUser.pfp = newUrl;
-            document.getElementById('user-avatar').src = newUrl;
-            try { updateDoc(doc(db, "users", currentUser.username), { pfp: newUrl }); } catch(e){}
-        }
-    }
-
-    document.getElementById('edit-username-btn').addEventListener('click', async () => {
-        const nextName = prompt("Enter alternative username moniker title profile reference mapping:", currentUser.username);
-        if(nextName && nextName !== currentUser.username) {
-            alert("Profile metadata tag identifier appended successfully!");
-            currentUser.username = nextName;
-            document.getElementById('profile-username-heading').innerText = `@${nextName}`;
+    playerElement.addEventListener('timeupdate', () => {
+        if(playerElement.duration) {
+            progressBar.style.width = `${(playerElement.currentTime / playerElement.duration) * 100}%`;
         }
     });
 
+    progressContainer.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        playerElement.currentTime = ((e.clientX - rect.left) / rect.width) * playerElement.duration;
+    });
+
+    document.getElementById('player-back-btn').addEventListener('click', () => {
+        playerElement.pause();
+        document.getElementById('player-screen').classList.remove('active');
+        renderGrids();
+    });
+
+    document.getElementById('player-like-btn').addEventListener('click', () => {
+        toggleLike(activeVideo.id, false);
+        updatePlayerEngagementUI();
+    });
+
+    document.getElementById('player-dislike-btn').addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+
+    function toggleLike(id, refreshScrolls) {
+        const v = videos.find(video => video.id === id);
+        const idx = v.likedBy.indexOf(currentUser.username);
+        if(idx > -1) v.likedBy.splice(idx, 1);
+        else v.likedBy.push(currentUser.username);
+        saveAll();
+        if(refreshScrolls) renderScrolls();
+    }
+
+    // Comments Execution
+    document.getElementById('submit-comment-btn').addEventListener('click', () => {
+        const inp = document.getElementById('new-comment-input');
+        if(!inp.value.trim()) return;
+        activeVideo.comments.push({ user: currentUser.username, text: inp.value.trim() });
+        saveAll();
+        inp.value = '';
+        renderComments();
+    });
+
+    function renderComments() {
+        const container = document.getElementById('comments-container');
+        container.innerHTML = '';
+        activeVideo.comments.forEach(c => {
+            const div = document.createElement('div');
+            div.className = 'comment-item';
+            div.innerHTML = `<strong>@${c.user}</strong>: ${c.text}`;
+            container.appendChild(div);
+        });
+    }
+
+    // Profile Edits
+    window.changePfp = function() {
+        const url = prompt("Enter profile image URL:", currentUser.pfp);
+        if(url) { currentUser.pfp = url; users[currentUser.username].pfp = url; saveAll(); updateProfileUI(); }
+    };
+
+    window.changeUsername = function() {
+        const name = prompt("Enter new username:", currentUser.username);
+        if(name && name !== currentUser.username) {
+            if(users[name]) return alert("Username taken!");
+            
+            // Migrate users references
+            delete users[currentUser.username];
+            currentUser.username = name;
+            users[name] = currentUser;
+            
+            // Sync old videos
+            videos.forEach(v => {
+                if(v.author === name) v.author = name;
+                v.likedBy = v.likedBy.map(u => u === name ? name : u);
+            });
+            
+            saveAll();
+            updateProfileUI();
+            alert("Username changed!");
+        }
+    };
 </script>
 </body>
 </html>
