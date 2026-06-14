@@ -99,7 +99,6 @@
             outline: none;
         }
 
-        /* Styling specifically for file inputs to fit the theme */
         input[type="file"] {
             padding: 10px;
             cursor: pointer;
@@ -156,7 +155,10 @@
             width: 100%;
             height: 110px;
             background: #000;
-            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
         }
 
         .video-info {
@@ -356,6 +358,7 @@
 
 <div id="app-container">
 
+    <!-- LOGIN / SIGNUP SCREEN -->
     <div id="auth-screen" class="screen active">
         <div class="auth-card">
             <h1 class="logo">NightVideo</h1>
@@ -367,6 +370,7 @@
         </div>
     </div>
 
+    <!-- HOME SCREEN -->
     <div id="home-screen" class="screen">
         <div class="header">
             <h2 class="logo" style="font-size: 1.5rem; margin-bottom: 10px;">NightVideo</h2>
@@ -375,8 +379,10 @@
         <div class="video-grid" id="home-video-grid"></div>
     </div>
 
+    <!-- SCROLLS SCREEN -->
     <div id="scrolls-screen" class="screen"></div>
 
+    <!-- POST CONTENT SCREEN -->
     <div id="post-screen" class="screen" style="padding: 20px;">
         <h2 style="color: var(--neon-blue); margin-bottom: 20px;">Post Content</h2>
         
@@ -395,11 +401,13 @@
         <button id="submit-post-btn">Publish Post</button>
     </div>
 
+    <!-- LIKED CONTENT SCREEN -->
     <div id="liked-screen" class="screen">
         <div class="header"><h2>Liked Content</h2></div>
         <div class="video-grid" id="liked-video-grid"></div>
     </div>
 
+    <!-- PROFILE SCREEN -->
     <div id="profile-screen" class="screen">
         <div class="profile-header">
             <img id="user-avatar" class="profile-pic" src="https://api.dicebear.com/7.x/bottts/svg?seed=Night" onclick="changePfp()">
@@ -410,12 +418,14 @@
         <div class="video-grid" id="profile-video-grid"></div>
     </div>
 
+    <!-- CUSTOM VIDEO PLAYER OVERLAY -->
     <div id="player-screen" class="screen">
         <div class="player-header">
             <button class="back-btn" id="player-back-btn">⬅ Back</button>
         </div>
-        <video id="main-player-element" class="main-video-element" autoplay controlslist="nodownload"></video>
+        <video id="main-player-element" class="main-video-element" autoplay></video>
         
+        <!-- Custom purple/pink progress bar tracking line -->
         <div class="custom-progress-container" id="custom-progress-container">
             <div class="custom-progress-bar" id="custom-progress-bar"></div>
         </div>
@@ -438,6 +448,7 @@
         </div>
     </div>
 
+    <!-- BOTTOM TAB NAVIGATION -->
     <div class="navbar" id="main-navbar" style="display:none;">
         <div class="nav-item active" onclick="switchTab('home')">🏠<span>Home</span></div>
         <div class="nav-item" onclick="switchTab('scrolls')">📱<span>Scrolls</span></div>
@@ -449,7 +460,9 @@
 </div>
 
 <script>
-    // System Data Initialization
+    // In-memory runtime cache array to keep files loaded without local storage string compression errors
+    let activeSessionVideos = [];
+
     let users = JSON.parse(localStorage.getItem('nv_users')) || {};
     let videos = JSON.parse(localStorage.getItem('nv_videos')) || [
         { id: "1", title: "Retro Midnight Neon Drive", type: "normal", url: "https://vjs.zencdn.net/v/oceans.mp4", author: "CyberDrive", likedBy: [], comments: [] },
@@ -462,14 +475,17 @@
     let isLoginMode = false;
     let activeVideo = null;
 
-    // Save helpers
     function saveAll() {
         localStorage.setItem('nv_users', JSON.stringify(users));
-        // Note: Object URLs generated from local files are temporary to the browser session and won't play across page refreshes.
         localStorage.setItem('nv_videos', JSON.stringify(videos));
     }
 
-    // Auth Actions
+    // Merge static baseline items with active session video objects seamlessly
+    function getAllVideos() {
+        return [...videos, ...activeSessionVideos];
+    }
+
+    // Auth Event Actions
     const authToggle = document.getElementById('auth-toggle');
     const authTitle = document.getElementById('auth-title');
     const authBtn = document.getElementById('auth-submit-btn');
@@ -514,7 +530,7 @@
         document.getElementById('profile-username-heading').innerText = `@${currentUser.username}`;
     }
 
-    // Tab Handling
+    // Tab Interface Toggling Engine
     window.switchTab = function(tabName) {
         document.getElementById('main-player-element').pause();
         document.querySelectorAll('.scroll-video').forEach(v => v.pause());
@@ -523,7 +539,6 @@
 
         document.getElementById(`${tabName}-screen`).classList.add('active');
         
-        // Tab indicator update
         const idx = ['home','scrolls','post','liked','profile'].indexOf(tabName);
         document.querySelectorAll('.nav-item')[idx].classList.add('active');
 
@@ -531,7 +546,7 @@
         if(tabName === 'scrolls') renderScrolls();
     };
 
-    // Render Feeds
+    // Grid System Pipeline Implementation
     function renderGrids() {
         const homeGrid = document.getElementById('home-video-grid');
         const likedGrid = document.getElementById('liked-video-grid');
@@ -540,33 +555,36 @@
 
         homeGrid.innerHTML = ''; likedGrid.innerHTML = ''; profileGrid.innerHTML = '';
 
-        videos.forEach(v => {
+        getAllVideos().forEach(v => {
             if(v.type !== 'normal') return;
             if(search && !v.title.toLowerCase().includes(search)) return;
 
             const card = document.createElement('div');
             card.className = 'video-card';
             card.innerHTML = `
-                <div style="width:100%; height:110px; background:#000; display:flex; align-items:center; justify-content:center; font-size:2rem;">🎬</div>
+                <div class="video-thumbnail">${v.type === 'normal' ? '🎬' : '📱'}</div>
                 <div class="video-info">
                     <div class="video-title">${v.title}</div>
                     <div style="font-size:0.75rem; color:#aaa;">@${v.author}</div>
                 </div>
             `;
+            
+            // Assign clicking behaviors safely to cloned layouts
             card.onclick = () => openPlayer(v);
 
-            homeGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
-            if(v.likedBy.includes(currentUser.username)) likedGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
-            if(v.author === currentUser.username) profileGrid.appendChild(card.cloneNode(true).onclick = () => openPlayer(v));
+            homeGrid.appendChild(card.cloneNode(true)).onclick = () => openPlayer(v);
+            if(v.likedBy.includes(currentUser.username)) likedGrid.appendChild(card.cloneNode(true)).onclick = () => openPlayer(v);
+            if(v.author === currentUser.username) profileGrid.appendChild(card.cloneNode(true)).onclick = () => openPlayer(v);
         });
     }
 
     document.getElementById('search-bar').addEventListener('input', renderGrids);
 
+    // Vertical Scrolls UI Rendering Setup
     function renderScrolls() {
         const scr = document.getElementById('scrolls-screen');
         scr.innerHTML = '';
-        videos.forEach(v => {
+        getAllVideos().forEach(v => {
             if(v.type !== 'scroll') return;
             const container = document.createElement('div');
             container.className = 'scroll-container';
@@ -576,7 +594,7 @@
                 <video class="scroll-video" src="${v.url}" loop playsinline></video>
                 <div class="scroll-overlay"><h3>@${v.author}</h3><p>${v.title}</p></div>
                 <div class="scroll-sidebar">
-                    <div class="sidebar-icon" style="color:${hasLiked?'var(--neon-pink)':'white'}" onclick="toggleLike('${v.id}', true)">❤️</div>
+                    <div class="sidebar-icon" style="color:${hasLiked ? 'var(--neon-pink)' : 'white'}" onclick="event.stopPropagation(); toggleLike('${v.id}', true)">❤️</div>
                     <div style="font-size:0.8rem; margin-top:-10px;">${v.likedBy.length}</div>
                 </div>
             `;
@@ -586,7 +604,6 @@
             scr.appendChild(container);
         });
 
-        // Visibility autoplay check
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 const video = e.target.querySelector('.scroll-video');
@@ -596,40 +613,47 @@
         document.querySelectorAll('.scroll-container').forEach(c => obs.observe(c));
     }
 
-    // Video Posting (Updated to extract data from File Upload element)
+    // Direct Binary Device File Upload Pipeline
     document.getElementById('submit-post-btn').addEventListener('click', () => {
         const title = document.getElementById('post-title').value.trim();
         const type = document.getElementById('post-type').value;
         const fileInput = document.getElementById('post-file');
 
         if(!title) return alert("Please enter a title.");
-        
-        let url = "";
+        if(fileInput.files.length === 0) return alert("Please select a video file from your device.");
 
-        // Check if the user selected a local file
-        if(fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            // Generates a local browser source stream URL for the chosen video file
-            url = URL.createObjectURL(file);
-        } else {
-            // Default fallback if they leave it empty
-            url = type === 'normal' 
-                ? "https://vjs.zencdn.net/v/oceans.mp4" 
-                : "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4";
-        }
+        const file = fileInput.files[0];
+        const reader = new FileReader();
 
-        videos.push({ id: String(Date.now()), title, type, url, author: currentUser.username, likedBy: [], comments: [] });
-        saveAll();
-        
-        // Reset Inputs
-        document.getElementById('post-title').value = '';
-        fileInput.value = '';
-        
-        alert("Video uploaded and published successfully!");
-        switchTab('home');
+        // Convert file into native raw stream data inside runtime memory
+        reader.onload = function(e) {
+            const base64Url = e.target.result;
+
+            const newPost = {
+                id: String(Date.now()),
+                title: title,
+                type: type,
+                url: base64Url, // Directly injects base64 encoded video source mapping 
+                author: currentUser.username,
+                likedBy: [],
+                comments: []
+            };
+
+            // Save to live app runtime memory cache
+            activeSessionVideos.push(newPost);
+            
+            // Clear input selectors cleanly
+            document.getElementById('post-title').value = '';
+            fileInput.value = '';
+            
+            alert("Video successfully broadcast to NightVideo feeds!");
+            switchTab('home');
+        };
+
+        reader.readAsDataURL(file);
     });
 
-    // Custom Video Player Logic
+    // Custom Player Engine Overlay UI Configurations
     function openPlayer(video) {
         activeVideo = video;
         document.getElementById('player-screen').classList.add('active');
@@ -650,7 +674,7 @@
         document.getElementById('player-like-btn').innerText = `👍 ${activeVideo.likedBy.length} Likes`;
     }
 
-    // Custom Progress Tracker (Purple Bar/Pink Progress)
+    // Interactive Track Timeline Handler
     const playerElement = document.getElementById('main-player-element');
     const progressBar = document.getElementById('custom-progress-bar');
     const progressContainer = document.getElementById('custom-progress-container');
@@ -682,15 +706,17 @@
     });
 
     function toggleLike(id, refreshScrolls) {
-        const v = videos.find(video => video.id === id);
+        const v = getAllVideos().find(video => video.id === id);
+        if(!v) return;
         const idx = v.likedBy.indexOf(currentUser.username);
         if(idx > -1) v.likedBy.splice(idx, 1);
         else v.likedBy.push(currentUser.username);
+        
         saveAll();
         if(refreshScrolls) renderScrolls();
     }
 
-    // Comments Execution
+    // Engagement Comment Box Pipelines
     document.getElementById('submit-comment-btn').addEventListener('click', () => {
         const inp = document.getElementById('new-comment-input');
         if(!inp.value.trim()) return;
@@ -700,7 +726,6 @@
         renderComments();
     });
 
-    // Render Comments
     function renderComments() {
         const container = document.getElementById('comments-container');
         container.innerHTML = '';
@@ -712,7 +737,7 @@
         });
     }
 
-    // Profile Edits
+    // Username / Picture modifiers
     window.changePfp = function() {
         const url = prompt("Enter profile image URL:", currentUser.pfp);
         if(url) { currentUser.pfp = url; users[currentUser.username].pfp = url; saveAll(); updateProfileUI(); }
@@ -723,20 +748,18 @@
         if(name && name !== currentUser.username) {
             if(users[name]) return alert("Username taken!");
             
-            // Migrate users references
             delete users[currentUser.username];
             currentUser.username = name;
             users[name] = currentUser;
             
-            // Sync old videos
-            videos.forEach(v => {
+            getAllVideos().forEach(v => {
                 if(v.author === name) v.author = name;
                 v.likedBy = v.likedBy.map(u => u === name ? name : u);
             });
             
             saveAll();
             updateProfileUI();
-            alert("Username changed!");
+            alert("Username updated!");
         }
     };
 </script>
