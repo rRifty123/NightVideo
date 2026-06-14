@@ -99,6 +99,12 @@
             outline: none;
         }
 
+        /* Styling specifically for file inputs to fit the theme */
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+
         input:focus {
             box-shadow: 0 0 8px var(--neon-blue);
         }
@@ -373,12 +379,19 @@
 
     <div id="post-screen" class="screen" style="padding: 20px;">
         <h2 style="color: var(--neon-blue); margin-bottom: 20px;">Post Content</h2>
-        <input type="text" id="post-title" placeholder="Video Title...">
+        
+        <label style="font-size: 0.9rem; color: #aaa;">Video Title</label>
+        <input type="text" id="post-title" placeholder="Give your video a title...">
+        
+        <label style="font-size: 0.9rem; color: #aaa;">Video Feed Format</label>
         <select id="post-type">
-            <option value="normal">Normal Video</option>
+            <option value="normal">Normal Video (Horizontal Grid)</option>
             <option value="scroll">Scroll (Vertical Short)</option>
         </select>
-        <input type="text" id="post-url" placeholder="Video URL (or leave blank for sample)">
+        
+        <label style="font-size: 0.9rem; color: #aaa;">Upload File from Device</label>
+        <input type="file" id="post-file" accept="video/*">
+        
         <button id="submit-post-btn">Publish Post</button>
     </div>
 
@@ -452,6 +465,7 @@
     // Save helpers
     function saveAll() {
         localStorage.setItem('nv_users', JSON.stringify(users));
+        // Note: Object URLs generated from local files are temporary to the browser session and won't play across page refreshes.
         localStorage.setItem('nv_videos', JSON.stringify(videos));
     }
 
@@ -572,7 +586,7 @@
             scr.appendChild(container);
         });
 
-        // Simple visibility autoplay check
+        // Visibility autoplay check
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 const video = e.target.querySelector('.scroll-video');
@@ -582,21 +596,36 @@
         document.querySelectorAll('.scroll-container').forEach(c => obs.observe(c));
     }
 
-    // Video Posting
+    // Video Posting (Updated to extract data from File Upload element)
     document.getElementById('submit-post-btn').addEventListener('click', () => {
         const title = document.getElementById('post-title').value.trim();
         const type = document.getElementById('post-type').value;
-        let url = document.getElementById('post-url').value.trim();
+        const fileInput = document.getElementById('post-file');
 
         if(!title) return alert("Please enter a title.");
-        if(!url) url = type === 'normal' ? "https://vjs.zencdn.net/v/oceans.mp4" : "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4";
+        
+        let url = "";
+
+        // Check if the user selected a local file
+        if(fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            // Generates a local browser source stream URL for the chosen video file
+            url = URL.createObjectURL(file);
+        } else {
+            // Default fallback if they leave it empty
+            url = type === 'normal' 
+                ? "https://vjs.zencdn.net/v/oceans.mp4" 
+                : "https://assets.mixkit.co/videos/preview/mixkit-girl-in-neon-sign-lighting-39934-large.mp4";
+        }
 
         videos.push({ id: String(Date.now()), title, type, url, author: currentUser.username, likedBy: [], comments: [] });
         saveAll();
         
+        // Reset Inputs
         document.getElementById('post-title').value = '';
-        document.getElementById('post-url').value = '';
-        alert("Posted successfully!");
+        fileInput.value = '';
+        
+        alert("Video uploaded and published successfully!");
         switchTab('home');
     });
 
@@ -671,6 +700,7 @@
         renderComments();
     });
 
+    // Render Comments
     function renderComments() {
         const container = document.getElementById('comments-container');
         container.innerHTML = '';
